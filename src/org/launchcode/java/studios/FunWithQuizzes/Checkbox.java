@@ -1,4 +1,9 @@
 package org.launchcode.java.studios.FunWithQuizzes;
 
-public class Checkbox {
+public class Checkbox{
+    private String[] choices;
+
+    public void getCheckBox(){
+
+    }
 }

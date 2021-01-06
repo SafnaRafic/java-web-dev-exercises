@@ -11,7 +11,7 @@ public class StringSearch {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter a word to search: ");
         String searchTerm = input.next().toLowerCase();
-        
+
         boolean result= alice.searchQuote(quoteLowerCase,searchTerm);
         System.out.println(result);
         if(result) {

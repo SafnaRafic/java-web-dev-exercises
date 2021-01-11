@@ -1,4 +1,4 @@
-package exercises;
+package exercises.ch3ControlFlowExecution;
 
 import java.util.HashMap;
 import java.util.Map;

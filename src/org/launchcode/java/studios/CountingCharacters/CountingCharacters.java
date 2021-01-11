@@ -1,79 +1,104 @@
 package org.launchcode.java.studios.CountingCharacters;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 public class CountingCharacters {
-    public static void main(String[] args) throws IOException {
-        HashMap<Character, Integer> characterMap = new HashMap<>();
-        File text = new File("C:\\Code\\LaunchCode\\java-practice\\java-web-dev-exercises\\src\\org\\launchcode\\java\\studios\\CountingCharacters\\test.txt");
+    //class variables
 
-//   HARD CODE
-//        String str="If the product of two terms is zero then common sense says at " +
-//                "least one of the two terms has to be zero to start with. So if you " +
-//                "move all the terms over to one side, you can put the quadratics into a form" +
-//                " that can be factored allowing that side of the equation to equal zero. " +
-//                "Once you’ve done that, it’s pretty straightforward from there.";
-//   INPUT FROM USER
-//        Scanner input=new Scanner(System.in);
-//        System.out.println("Enter a string");
-//        String str=input.nextLine();
-        String hell = "Hello World";
-        Path path = Paths.get(text.getPath());
-        int ln = 72;
-        List<String> insertLine = Files.readAllLines(path, StandardCharsets.UTF_8);
-        insertLine.add(ln, "\t\tinsertLine.add(72,\"\t\tSystem.out.println(hell);\");");
-        Files.write(path, insertLine, StandardCharsets.UTF_8);
+    // constructors
+    public CountingCharacters() {
+    }
 
-//to append to the end of a file.
-        OutputStream oos = null;
-        try {
-            oos = new FileOutputStream(text, true);
-            oos.write("// Hello ".getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                oos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+    //methods
+    public void characterCount(String wordToCount) {
+        //make case insensitive
+
+        wordToCount = wordToCount.toLowerCase();
+
+        char[] arrayOfChars = wordToCount.toCharArray();
+        HashMap<Character, Integer> myCharacterCount = new HashMap<Character, Integer>();
+
+        //for (char c : strArray) {
+        for (int i = 0; i < arrayOfChars.length; i++) {
+            //Add or update the count of each character into the hash map
+
+            char theCharacter = arrayOfChars[i];
+
+            //Exclude non -alphabetic character
+            if (Character.isLetter(arrayOfChars[i]) == false) {
+                //Exclude it!
+                continue; // continue says - stop what you are doing and continues to the top(for loop)
             }
+            if (myCharacterCount.containsKey(theCharacter) == false) {
+
+                // Does not contain the key
+                myCharacterCount.put(theCharacter, 1);
+            } else {
+                Integer theValue = myCharacterCount.get(theCharacter);
+                theValue = theValue + 1;
+                myCharacterCount.put(theCharacter, theValue);
+            }
+//            System.out.println(myCharacterCount);
+
         }
-        Scanner scnr = new Scanner(text);
-        int lineNumber = 1;
-
-        while (scnr.hasNextLine()) {
-            String str = scnr.nextLine();
-            lineNumber++;
-            str = str.toLowerCase();
-            str = str.toLowerCase();
-            str = str.replaceAll("[^a-z ]", "");
-            char[] charactersInString = str.toCharArray();
-            for (char c : charactersInString) {
-                if (characterMap.containsKey(c)) {
-//               System.out.println("If block - value of "+c+ " before is " +characterMap.get(c) +" now adding 1");
-                    characterMap.put(c, characterMap.get(c) + 1);
-                } else {
-
-//               If char is not present in characterMap, initializing the char with 1  as value
-                    characterMap.put(c, 1);
-//               System.out.println("Else block - value of "+c+ " is 1" );
-
-                }
-            }
-            for (Map.Entry<Character, Integer> character : characterMap.entrySet()) {
-                System.out.println(character.getKey() + " : " + character.getValue());
-            }
-
-         //
+        ArrayList<Character> myCharacterKeys = new ArrayList<>(myCharacterCount.keySet());
+        for (int i = 0; i < myCharacterKeys.size(); i++) {
+            Integer theValue = myCharacterCount.get(myCharacterKeys.get(i));
+            System.out.println(myCharacterKeys.get(i) + " : " + theValue);
         }
     }
+
+    public String getUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a string : ");
+        String str = scanner.nextLine();
+        scanner.close();
+        return str;
+    }
+
+    public String getTextFromFile(String pathToFile) {
+        String content = " ";
+        try {
+            content = new String(Files.readAllBytes(Paths.get(pathToFile)));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return content;
+    }
 }
+
+//    public static void main(String[] args) throws IOException {
+//
+//        HashMap<Character, Integer> characterCounts = new HashMap<>();
+////        String testString = "If the product of two terms is zero then common sense says at least one of the two terms has to be zero to start with. So if you move all the terms over to one side, you can put the quadratics into a form that can be factored allowing that side of the equation to equal zero. Once you’ve done that, it’s pretty straightforward from there.";
+//
+//        Scanner input = new Scanner(System.in);
+//        System.out.println("Enter a string: ");
+//        String testString = input.nextLine();
+//        char[] charactersInString = testString.toLowerCase().toCharArray();
+//
+//        for (char character : charactersInString) {
+//            if(Character.isLetter(character)) {
+//                if (characterCounts.containsKey(character)) {
+//                    characterCounts.put(character, characterCounts.get(character) + 1);
+//                } else {
+//                    characterCounts.put(character, 1);
+//                }
+//            }
+//        }
+////        System.out.println(testString +"\n "+characterCounts);
+//        for (Map.Entry<Character, Integer> oneChar : characterCounts.entrySet()) {
+//            System.out.println(oneChar.getKey() + ": " + oneChar.getValue());
+//        }
+//
+//    }
+//}
+
 

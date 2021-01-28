@@ -46,6 +46,8 @@ public class CarTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGasOverfillException(){
         test_car.addGas(5);
+        //The fail assertion fails a test throwing an AssertionError.
+        // It can be used to verify that an actual exception is thrown or when we want to make a test failing during its development.
         fail("Shouldn't get here, car cannot have more gas in tank than the size of the tank");
     }
 

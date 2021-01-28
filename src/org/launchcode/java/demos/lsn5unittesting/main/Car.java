@@ -75,17 +75,22 @@ public class Car {
     public void drive(double miles)
     {
         //adjust fuel based on mpg and miles requested to drive
-        double maxDistance = this.milesPerGallon * this.gasTankLevel;
+        double maxDistance = this.milesPerGallon * this.gasTankLevel;// 10*50
         /**the double below uses some syntax called the ternary operator.
          * if the value of miles is greater than the value of maxDistance,
          * then milesAbleToTravel = maxDistance.
          * otherwise, if miles is not greater than maxDistance,
          * then milesAbleToTravel = miles
          */
-        double milesAbleToTravel = miles > maxDistance ? maxDistance : miles;
-        double gallonsUsed = milesAbleToTravel / this.milesPerGallon;
-        this.gasTankLevel = this.gasTankLevel - gallonsUsed;
-        this.odometer += milesAbleToTravel;
+//        System.out.println("Max Distance: "+maxDistance);
+        double milesAbleToTravel = miles > maxDistance ? maxDistance : miles; //500
+//        System.out.println("Miles Able to travel " +milesAbleToTravel);
+        double gallonsUsed = milesAbleToTravel / this.milesPerGallon; //500/50 = 10
+//        System.out.println("Gallons used: "+gallonsUsed);
+        this.gasTankLevel = this.gasTankLevel - gallonsUsed; // 10-10
+//        System.out.println("Gas tank level : "+this.gasTankLevel);
+        this.odometer += milesAbleToTravel;//500
+//        System.out.println("Odometer: "+this.odometer);
     }
     public void addGas(double gas) {
         this.setGasTankLevel(gas + this.getGasTankLevel());
